@@ -64,9 +64,30 @@
     var min = $("[data-i18n='hero.t2']");
     if (min && l !== "es") min.textContent = d["hero.t2"].replace("{min}", priceText(60000));
     $$(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.lang === l)); });
+    var fab = $(".fab"); if (fab) fab.dataset.label = l === "es" ? "Hablá con Mauro" : T[l].fab;
     renderPrices(); renderWa(); renderQuiz();
   }
   $$(".lang button").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.dataset.lang); }); });
+
+
+  /* ---------- encuesta primero ---------- */
+  var KEY = "magency-open";
+  function isOpen() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function openSite(target) {
+    var wasGated = document.body.classList.contains("gated");
+    document.body.classList.remove("gated");
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    if (wasGated) $$("main > section:not(.hero), footer").forEach(function (el) { el.classList.add("reveal"); });
+    if (target) { var el = $(target); if (el) setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60); }
+  }
+  if (isOpen() || new URLSearchParams(location.search).get("perfil")) document.body.classList.remove("gated");
+  $("#skip").addEventListener("click", function () { openSite("#caminos"); });
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var h = a.getAttribute("href");
+      if (document.body.classList.contains("gated") && h !== "#top" && h !== "#encuesta") { e.preventDefault(); openSite(h); }
+    });
+  });
 
   /* ---------- encuesta ---------- */
   var answers = [], body = $("#quiz-body"), dots = $$(".steps i");
@@ -103,7 +124,8 @@
         r.extras.map(function (x) { return '<div class="plus">' + q.plus.replace("{x}", PLANS[x].name) + "</div>"; }).join("") +
         "<p>" + why + '</p><div class="price">' + from + priceText(p.ars) + " <span>" + per + "</span></div>" +
         '<a class="btn btn-v" target="_blank" rel="noopener" href="' + wa(text) + '">' + q.cta + "</a>" +
-        '<button type="button" class="q-back">' + q.restart + "</button></div>";
+        '<button type="button" class="q-back">' + q.restart + '</button><a class="q-back" href="#planes" style="display:block;text-align:center">' + q.seeAll + "</a></div>";
+      openSite();
     }
     var back = $(".q-back", body);
     if (back) back.addEventListener("click", function () { if (answers.length >= 3) answers = []; else answers.pop(); renderQuiz(); });

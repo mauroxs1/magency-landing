@@ -14,7 +14,7 @@ window.I18N = {
     "hero.eyebrow": "Digital growth agency",
     "hero.title": "Your business, <em>organized</em> inside and <em>growing</em> outside.",
     "hero.lead": "Social media, ads, landing pages and management systems in one place. Affordable plans and a real person who answers you.",
-    "hero.cta1": "Find your plan", "hero.cta2": "See plans and prices",
+    "hero.skip": "I'd rather see the whole site", "hero.cta1": "Find your plan", "hero.cta2": "See plans and prices",
     "hero.t1": "Everything in one place", "hero.t2": "Plans from {min}", "hero.t3": "Clients in Argentina and Portugal",
     "quiz.title": "Find your plan in 3 questions",
     "paths.eyebrow": "Where to start", "paths.title": "Where is your business right now?",
@@ -22,7 +22,7 @@ window.I18N = {
     "paths.p2": "I already sell and want more", "paths.p2d": "Steady content and campaigns so more customers message you.",
     "paths.p3": "I want to scale", "paths.p3d": "Automation and AI to answer fast, sell more and save hours.",
     "paths.p4": "I want to organize my numbers", "paths.p4d": "A simple system to know how much you sell, spend and earn.",
-    "plans.eyebrow": "Plans", "plans.title": "Choose your <em>plan</em>",
+    "plans.swipe": "Swipe to see the plans →", "fab": "Talk to Mauro", "plans.eyebrow": "Plans", "plans.title": "Choose your <em>plan</em>",
     "plans.lead": "Clear prices, no fine print. We adjust the final price to your business.",
     "p.once": "one-time payment", "p.month": "per month", "p.from": "from", "p.badge": "Most popular", "p.cta": "I want this plan",
     "p.inicio.for": "To launch your social media properly from day one.",
@@ -63,7 +63,7 @@ window.I18N = {
     "hero.eyebrow": "Agência de crescimento digital",
     "hero.title": "O seu negócio, <em>organizado</em> por dentro e <em>crescendo</em> por fora.",
     "hero.lead": "Redes sociais, anúncios, landing pages e sistemas de gestão num só lugar. Planos acessíveis e alguém que responde de verdade.",
-    "hero.cta1": "Encontre o seu plano", "hero.cta2": "Ver planos e preços",
+    "hero.skip": "Prefiro ver o site completo", "hero.cta1": "Encontre o seu plano", "hero.cta2": "Ver planos e preços",
     "hero.t1": "Tudo num só lugar", "hero.t2": "Planos a partir de {min}", "hero.t3": "Clientes na Argentina e em Portugal",
     "quiz.title": "Encontre o seu plano em 3 perguntas",
     "paths.eyebrow": "Por onde começar", "paths.title": "Em que momento está o seu negócio?",
@@ -71,7 +71,7 @@ window.I18N = {
     "paths.p2": "Já vendo e quero mais", "paths.p2d": "Conteúdo constante e campanhas para que mais clientes lhe escrevam.",
     "paths.p3": "Quero escalar", "paths.p3d": "Automação e IA para responder rápido, vender mais e poupar horas.",
     "paths.p4": "Quero organizar os meus números", "paths.p4d": "Um sistema simples para saber quanto vende, gasta e ganha.",
-    "plans.eyebrow": "Planos", "plans.title": "Escolha o seu <em>plano</em>",
+    "plans.swipe": "Deslize para ver os planos →", "fab": "Falar com o Mauro", "plans.eyebrow": "Planos", "plans.title": "Escolha o seu <em>plano</em>",
     "plans.lead": "Preços claros, sem letras pequenas. Ajustamos o valor final ao seu negócio.",
     "p.once": "pagamento único", "p.month": "por mês", "p.from": "a partir de", "p.badge": "Mais escolhido", "p.cta": "Quero este plano",
     "p.inicio.for": "Para começar nas redes bem preparado desde o primeiro dia.",
@@ -118,7 +118,7 @@ window.QUIZ = {
       { t: "¿Qué es lo que más te cuesta hoy?", o: { presencia: "No tengo presencia en redes", clientes: "Tengo redes, pero no me traen clientes", tiempo: "No tengo tiempo para responder y publicar", numeros: "No sé bien cuánto gano o vendo" } },
       { t: "¿Tenés presupuesto para publicidad?", o: { no: "Todavía no", algo: "Sí, algo", fuerte: "Sí, quiero invertir fuerte" } }
     ],
-    resultTitle: "Tu plan ideal", plus: "+ {x}", cta: "Quiero este plan",
+    resultTitle: "Tu plan ideal", seeAll: "Ver todos los planes ↓", plus: "+ {x}", cta: "Quiero este plan",
     why: {
       inicio: "Para arrancar bien: redes armadas, logo y cuenta publicitaria, en un pago único.",
       esencial: "Presencia constante en redes, sin que tengas que ocuparte vos.",
@@ -139,7 +139,7 @@ window.QUIZ = {
       { t: "What's hardest for you today?", o: { presencia: "I'm not on social media", clientes: "I have social media, but it doesn't bring customers", tiempo: "I don't have time to reply and post", numeros: "I don't really know how much I earn or sell" } },
       { t: "Do you have an ad budget?", o: { no: "Not yet", algo: "Yes, some", fuerte: "Yes, I want to invest big" } }
     ],
-    resultTitle: "Your ideal plan", plus: "+ {x}", cta: "I want this plan",
+    resultTitle: "Your ideal plan", seeAll: "See all plans ↓", plus: "+ {x}", cta: "I want this plan",
     why: {
       inicio: "To start right: social media set up, logo and ad account, in a one-time payment.",
       esencial: "A steady presence on social media without you having to handle it.",
@@ -160,7 +160,7 @@ window.QUIZ = {
       { t: "O que lhe custa mais hoje?", o: { presencia: "Não tenho presença nas redes", clientes: "Tenho redes, mas não me trazem clientes", tiempo: "Não tenho tempo para responder e publicar", numeros: "Não sei bem quanto ganho ou vendo" } },
       { t: "Tem orçamento para anúncios?", o: { no: "Ainda não", algo: "Sim, algum", fuerte: "Sim, quero investir forte" } }
     ],
-    resultTitle: "O seu plano ideal", plus: "+ {x}", cta: "Quero este plano",
+    resultTitle: "O seu plano ideal", seeAll: "Ver todos os planos ↓", plus: "+ {x}", cta: "Quero este plano",
     why: {
       inicio: "Para começar bem: redes montadas, logótipo e conta de anúncios, num pagamento único.",
       esencial: "Presença constante nas redes, sem ter de se ocupar disso.",
