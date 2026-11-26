@@ -5,8 +5,8 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   var PLANS = {
-    inicio: { name: "M Pack Inicio", ars: 299000, once: true, from: false },
-    esencial: { name: "M Esencial", ars: 250000, from: false },
+    inicio: { name: "M Pack Inicio", ars: 299000, once: true, from: true },
+    esencial: { name: "M Esencial", ars: 250000, from: true },
     profesional: { name: "M Profesional", ars: 370000, from: true },
     premium: { name: "M Premium", ars: 700000, from: true },
     gestion: { name: "M Sistema de Gestión", ars: 80000, from: true },

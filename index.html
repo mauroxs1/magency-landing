@@ -134,6 +134,8 @@ body:not(.gated) .skip{display:none}
 .plan .for{color:var(--mut);font-size:14px;margin-top:6px;min-height:44px}
 .plan .amount{font:900 34px var(--display);letter-spacing:-.03em;margin-top:18px}
 .plan .from{font:600 12px var(--sans);color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.plan .from{margin-top:18px}
+.plan .from + .amount{margin-top:2px}
 .plan .per{font:600 13px var(--sans);color:var(--mut)}
 .plan .usd{font:600 12px var(--sans);color:var(--mut);margin-top:2px}
 .plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:20px 0 24px;font-size:14.5px}
@@ -400,13 +402,13 @@ footer{padding-block:48px 40px;color:var(--mut);font-size:14px}
       <div class="plans">
         <article class="plan once" id="plan-inicio">
           <h3>M Pack Inicio</h3><p class="for" data-i18n="p.inicio.for">Para salir a las redes bien armado desde el primer día.</p>
-          <div class="amount" data-price="299000">$299.000</div><div class="per" data-i18n="p.once">pago único</div><div class="usd" data-usd="299000"></div>
+          <div class="from" data-i18n="p.from">desde</div><div class="amount" data-price="299000">$299.000</div><div class="per" data-i18n="p.once">pago único</div><div class="usd" data-usd="299000"></div>
           <ul><li data-i18n="p.inicio.1">Instagram y Facebook armados y enlazados en Meta</li><li data-i18n="p.inicio.2">Cuenta publicitaria creada y configurada</li><li data-i18n="p.inicio.3">3 posts diseñados</li><li data-i18n="p.inicio.4">Logo diseñado con IA y terminado a mano</li></ul>
           <a class="btn btn-v wa" data-msg="plan:M Pack Inicio" href="https://wa.me/5492612180849" target="_blank" rel="noopener" data-i18n="p.cta">Quiero este plan</a>
         </article>
         <article class="plan" id="plan-esencial">
           <h3>M Esencial</h3><p class="for" data-i18n="p.esencial.for">Para negocios chicos que necesitan presencia constante.</p>
-          <div class="amount" data-price="250000">$250.000</div><div class="per" data-i18n="p.month">por mes</div><div class="usd" data-usd="250000"></div>
+          <div class="from" data-i18n="p.from">desde</div><div class="amount" data-price="250000">$250.000</div><div class="per" data-i18n="p.month">por mes</div><div class="usd" data-usd="250000"></div>
           <ul><li data-i18n="p.esencial.1">Análisis del negocio y estrategia</li><li data-i18n="p.esencial.2">Gestión de redes y calendario mensual</li><li data-i18n="p.esencial.3">Diseño de posts e historias</li><li data-i18n="p.esencial.4">Reporte mensual</li></ul>
           <a class="btn btn-o wa" data-msg="plan:M Esencial" href="https://wa.me/5492612180849" target="_blank" rel="noopener" data-i18n="p.cta">Quiero este plan</a>
         </article>
