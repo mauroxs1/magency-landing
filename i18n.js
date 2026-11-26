@@ -3,7 +3,7 @@
 window.CONFIG = {
   whatsapp: "5492612180849",
   // Pesos por dólar para mostrar precios en USD. Revisar una vez por mes.
-  arsPorUsd: 1450,
+  arsPorUsd: 1650,
   // Recargo para clientes del exterior (versiones EN y PT).
   recargoExterior: 0.25
 };
