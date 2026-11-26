@@ -207,6 +207,8 @@ body:not(.gated) .skip{display:none}
 @media (max-width:820px){.voices{grid-template-columns:1fr}}
 @media (max-width:640px){.voices{grid-template-columns:1fr}}
 
+.msgic{cursor:default;background:var(--lav)!important}.msgic svg{fill:none!important;stroke:var(--v);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.voice.written .quote{margin-top:2px}
 /* mauro */
 .me{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}
 .me-card{background:var(--v);border-radius:32px;aspect-ratio:1;display:grid;place-items:center;position:relative;overflow:hidden}
@@ -488,7 +490,7 @@ footer{padding-block:48px 40px;color:var(--mut);font-size:14px}
   <!-- TESTIMONIOS -->
   <section class="sec" id="testimonios">
     <div class="wrap">
-      <div class="sec-head"><span class="eyebrow" data-i18n="vo.eyebrow">Testimonios</span><h2 data-i18n-html="vo.title">Escuchalo de <em>ellos</em></h2><p class="lead" data-i18n="vo.lead">Audios reales que nos mandaron nuestros clientes por WhatsApp.</p></div>
+      <div class="sec-head"><span class="eyebrow" data-i18n="vo.eyebrow">Testimonios</span><h2 data-i18n-html="vo.title">Escuchalo de <em>ellos</em></h2><p class="lead" data-i18n="vo.lead">Audios y mensajes reales que nos mandaron nuestros clientes por WhatsApp.</p></div>
       <div class="voices">
         <article class="voice" data-audio="assets/audio/fabiana.m4a">
           <div class="vtop"><button type="button" class="play" aria-label="Reproducir"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>
@@ -501,6 +503,17 @@ footer{padding-block:48px 40px;color:var(--mut);font-size:14px}
             <div class="vmeta"><b>Kraken</b><span><span data-i18n="cl.both">Sistema de gestión + redes</span> · Portugal</span></div><span class="vtime">1:15</span></div>
           <div class="wave" aria-hidden="true"></div>
           <p class="quote"><span data-i18n="vo.kraken">Antes de contratar a Magency no tenía marketing: no tenía tiempo ni disponibilidad. Con el sistema de gestión mejoré el contacto con mis clientes, la forma de presupuestar y los gastos administrativos. En redes, la última pauta llegó a 17 mil visualizaciones. Una locura. Lo recomiendo 100%: hubo un cambio enorme en la compañía.</span></p>
+        </article>
+        <article class="voice" data-audio="assets/audio/globaloptica.m4a">
+          <div class="vtop"><button type="button" class="play" aria-label="Reproducir"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>
+            <div class="vmeta"><b>Global Óptica</b><span><span data-i18n="cl.social">Redes sociales</span> · Mendoza</span></div><span class="vtime">0:26</span></div>
+          <div class="wave" aria-hidden="true"></div>
+          <p class="quote"><span data-i18n="vo.global">Al principio las redes las manejábamos nosotros, muy mediocremente, hasta que los contratamos. La verdad, tuvimos un crecimiento de redes bastante interesante. Recomiendo Magency para hacer crecer la empresa.</span></p>
+        </article>
+        <article class="voice written">
+          <div class="vtop"><span class="play msgic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"/><path d="M8 9.5h8M8 12.5h5"/></svg></span>
+            <div class="vmeta"><b>Electromove</b><span><span data-i18n="cl.both">Sistema de gestión + redes</span></span></div><span class="vtime" data-i18n="vo.written">Mensaje</span></div>
+          <p class="quote"><span data-i18n="vo.electromove">Mis redes antes estaban muy mal organizadas, con muy poca estética y una estrategia de venta muy pobre. Ahora los reels que estamos haciendo están increíbles. Una experiencia muy satisfactoria y una organización espléndida de Magency. Es justo lo que necesitás para aumentar tus seguidores y tus ventas.</span></p>
         </article>
         <article class="voice" data-audio="assets/audio/magnus.m4a">
           <div class="vtop"><button type="button" class="play" aria-label="Reproducir"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>

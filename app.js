@@ -148,7 +148,7 @@
 
   /* ---------- testimonios en audio ---------- */
   var current = null;
-  $$(".voice").forEach(function (card) {
+  $$(".voice[data-audio]").forEach(function (card) {
     var wave = $(".wave", card), btn = $(".play", card), time = $(".vtime", card), bars = [];
     for (var i = 0; i < 40; i++) {
       var b = document.createElement("i");
