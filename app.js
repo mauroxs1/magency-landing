@@ -27,6 +27,26 @@
   }
   var lang = pickLang();
 
+  /* ---------- medición (anónima) ---------- */
+  var QS = new URLSearchParams(location.search);
+  function rnd() { return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+  function stored(store, key) {
+    try { var v = store.getItem(key); if (!v) { v = rnd(); store.setItem(key, v); } return v; } catch (e) { return rnd(); }
+  }
+  var VID = stored(localStorage, "mg-v"), SID = stored(sessionStorage, "mg-s");
+  var NO_TRACK = (function () { try { return localStorage.getItem("mg-notrack") === "1"; } catch (e) { return false; } })();
+  var REF = (function () { try { var h = new URL(document.referrer).hostname; return h && h !== location.hostname ? h.replace(/^www\./, "") : ""; } catch (e) { return ""; } })();
+  function track(t, extra) {
+    if (NO_TRACK || location.protocol === "file:") return;
+    var d = { t: t, v: VID, s: SID, lang: lang, perfil: QS.get("perfil") || "", utm: QS.get("utm_source") || "", ref: REF };
+    for (var k in (extra || {})) d[k] = extra[k];
+    var body = JSON.stringify(d);
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon("/api/track", new Blob([body], { type: "text/plain" }))) return;
+    } catch (e) {}
+    try { fetch("/api/track", { method: "POST", body: body, keepalive: true, headers: { "Content-Type": "text/plain" } }); } catch (e) {}
+  }
+
   /* ---------- precios ---------- */
   function usd(ars, foreign) {
     var v = ars / C.arsPorUsd * (foreign ? 1 + C.recargoExterior : 1);
@@ -91,6 +111,7 @@
 
   /* ---------- encuesta ---------- */
   var answers = [], body = $("#quiz-body"), dots = $$(".steps i");
+  var quizSent = false, leadName = (function () { try { return localStorage.getItem("mg-lead") || ""; } catch (e) { return ""; } })();
 
   function recommend(a) {
     var stage = a[0], pain = a[1], budget = a[2], main, extras = [];
@@ -111,7 +132,13 @@
       });
       html += "</div>" + (step ? '<button type="button" class="q-back">' + q.back + "</button>" : "");
       body.innerHTML = html;
-      $$(".opt", body).forEach(function (b) { b.addEventListener("click", function () { answers.push(b.dataset.k); renderQuiz(); }); });
+      $$(".opt", body).forEach(function (b) { b.addEventListener("click", function () {
+        if (!answers.length) track("quiz_start");
+        answers.push(b.dataset.k); renderQuiz();
+      }); });
+    } else if (!leadName) {
+      renderLeadForm(q);
+      return;
     } else {
       var r = recommend(answers), p = PLANS[r.main];
       var names = [p.name].concat(r.extras.map(function (x) { return PLANS[x].name; })).join(" + ");
@@ -120,15 +147,54 @@
       var from = p.from ? (lang === "es" ? ES["p.from"] : T[lang]["p.from"]) + " " : "";
       var a = answers.map(function (k, i) { return q.q[i].o[k]; });
       var text = q.msgQuiz.replace("{a1}", a[0]).replace("{a2}", a[1]).replace("{a3}", a[2]).replace("{plan}", names);
-      body.innerHTML = '<div class="result"><small>' + q.resultTitle + "</small><h3>" + p.name + "</h3>" +
+      text = text.replace(/^([^!]*!)/, "$1 " + q.iam.replace("{n}", leadName.split(" ")[0]));
+      if (!quizSent) { quizSent = true; track("quiz_done", { plan: names }); }
+      body.innerHTML = '<div class="result"><small>' + q.resultTitle + ", " + esc(leadName.split(" ")[0]) + "</small><h3>" + p.name + "</h3>" +
         r.extras.map(function (x) { return '<div class="plus">' + q.plus.replace("{x}", PLANS[x].name) + "</div>"; }).join("") +
         "<p>" + why + '</p><div class="price">' + from + priceText(p.ars) + " <span>" + per + "</span></div>" +
-        '<a class="btn btn-v" target="_blank" rel="noopener" href="' + wa(text) + '">' + q.cta + "</a>" +
+        '<a class="btn btn-v wa" data-plan="' + esc(names) + '" target="_blank" rel="noopener" href="' + wa(text) + '">' + q.cta + "</a>" +
         '<button type="button" class="q-back">' + q.restart + '</button><a class="q-back" href="#planes" style="display:block;text-align:center">' + q.seeAll + "</a></div>";
       openSite();
     }
     var back = $(".q-back", body);
-    if (back) back.addEventListener("click", function () { if (answers.length >= 3) answers = []; else answers.pop(); renderQuiz(); });
+    if (back) back.addEventListener("click", function () { if (answers.length >= 3) { answers = []; quizSent = false; } else answers.pop(); renderQuiz(); });
+  }
+
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function renderLeadForm(q) {
+    dots.forEach(function (d) { d.classList.add("on"); });
+    body.innerHTML = '<div class="lead-form"><p class="q-count">' + q.formStep + '</p><p class="q-title">' + q.formTitle + '</p>' +
+      '<form id="leadf" novalidate>' +
+      '<label for="lf-name">' + q.fName + '</label><input id="lf-name" name="name" autocomplete="name" maxlength="80" required>' +
+      '<label for="lf-email">' + q.fEmail + '</label><input id="lf-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required>' +
+      '<input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<label class="chk" for="lf-consent"><input id="lf-consent" type="checkbox"><span>' + q.fConsent + '</span></label>' +
+      '<p class="ferr" role="alert" hidden></p>' +
+      '<button class="btn btn-v" type="submit">' + q.seePlan + '</button>' +
+      '<p class="legal">' + q.legal + ' <a href="privacidad.html" target="_blank" rel="noopener">' + q.privacy + '</a></p>' +
+      '</form><button type="button" class="q-back">' + q.back + '</button></div>';
+    var f = $("#leadf"), err = $(".ferr", body);
+    $(".q-back", body).addEventListener("click", function () { answers.pop(); renderQuiz(); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = f.name.value.trim(), email = f.email.value.trim();
+      if (name.length < 2) { err.textContent = q.errName; err.hidden = false; f.name.focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) { err.textContent = q.errEmail; err.hidden = false; f.email.focus(); return; }
+      var r = recommend(answers), names = [PLANS[r.main].name].concat(r.extras.map(function (x) { return PLANS[x].name; })).join(" + ");
+      var btn = $("button[type=submit]", f); btn.disabled = true;
+      var payload = { name: name, email: email, consent: $("#lf-consent").checked, website: f.website.value,
+        plan: names, answers: answers.map(function (k, i) { return Q.es.q[i].o[k]; }), lang: lang, v: VID,
+        perfil: QS.get("perfil") || "", utm: QS.get("utm_source") || "" };
+      var done = function () {
+        leadName = name;
+        try { localStorage.setItem("mg-lead", name); } catch (e2) {}
+        renderQuiz();
+      };
+      if (location.protocol === "file:") return done();
+      fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+        .then(done, done);
+    });
   }
 
   /* ---------- links de campaña: ?perfil=inicio|crecer|escalar|gestion ---------- */
@@ -167,12 +233,43 @@
     audio.addEventListener("ended", function () { btn.innerHTML = playIco; bars.forEach(function (b) { b.classList.remove("on"); }); });
     btn.addEventListener("click", function () {
       if (current && current !== audio) { current.pause(); }
-      if (audio.paused) { audio.play(); btn.innerHTML = pauseIco; current = audio;
+      if (audio.paused) { audio.play(); btn.innerHTML = pauseIco; current = audio; track("audio", { label: ($(".vmeta b", card) || {}).textContent || "" });
         $$(".voice .play").forEach(function (o) { if (o !== btn) o.innerHTML = playIco; });
       } else { audio.pause(); btn.innerHTML = playIco; }
     });
   });
 
+  /* ---------- medición: visita, tiempo en pantalla y clics ---------- */
+  var active = 0, since = document.visibilityState === "visible" ? Date.now() : 0;
+  function flush() {
+    if (since) { active += Date.now() - since; since = 0; }
+    track("leave", { sec: Math.round(active / 1000) });
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") flush(); else since = Date.now();
+  });
+  window.addEventListener("pagehide", flush);
+
+  function where(el) {
+    if (el.classList.contains("fab")) return "botón flotante";
+    if (el.closest(".result")) return "resultado de la encuesta";
+    if (el.closest("header")) return "encabezado";
+    if (el.closest("footer")) return "pie de página";
+    var sec = el.closest("section[id], article[id]");
+    return sec ? sec.id : "web";
+  }
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("a, button");
+    if (!el || el.classList.contains("opt") || el.closest(".lead-form")) return;
+    if (el.closest(".lang")) return track("lang", { label: el.dataset.lang });
+    if (el.closest(".voice")) return; // los audios se miden aparte
+    var plan = (el.dataset.msg || "").indexOf("plan:") === 0 ? el.dataset.msg.slice(5) : (el.dataset.plan || "");
+    if (el.classList.contains("wa") || /wa\.me\//.test(el.getAttribute("href") || "")) return track("wa", { label: where(el), plan: plan });
+    var txt = (el.dataset.track || el.getAttribute("aria-label") || el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 50);
+    track("click", { label: where(el) + " · " + txt, plan: plan });
+  }, true);
+
   applyLang(lang);
   applyProfile();
+  track("view");
 })();

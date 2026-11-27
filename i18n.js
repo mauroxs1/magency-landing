@@ -58,7 +58,7 @@ window.I18N = {
     "me.2": "We always answer", "me.2d": "We keep an eye on your business and solve your questions.",
     "me.3": "Applied AI", "me.3d": "We use new tools to do more, better and at an affordable cost.",
     "me.cta": "Talk to Mauro",
-    "corta.w": "let's talk", "corta.a": "no strings attached", "final.title": "Shall we start?", "final.lead": "Message us and let's talk. No commitment.", "final.cta": "Message on WhatsApp"
+    "foot.privacy": "Privacy", "corta.w": "let's talk", "corta.a": "no strings attached", "final.title": "Shall we start?", "final.lead": "Message us and let's talk. No commitment.", "final.cta": "Message on WhatsApp"
   },
   pt: {
     "nav.plans": "Planos", "nav.services": "Serviços", "nav.clients": "Clientes", "nav.about": "Sobre nós", "nav.cta": "Vamos conversar",
@@ -109,7 +109,7 @@ window.I18N = {
     "me.2": "Respondemos sempre", "me.2d": "Acompanhamos o seu negócio e resolvemos as suas dúvidas.",
     "me.3": "IA aplicada", "me.3d": "Usamos ferramentas novas para fazer mais, melhor e a um custo acessível.",
     "me.cta": "Falar com o Mauro",
-    "corta.w": "falamos", "corta.a": "sem compromisso", "final.title": "Vamos começar?", "final.lead": "Escreva-nos e conversamos. Sem compromisso.", "final.cta": "Escrever no WhatsApp"
+    "foot.privacy": "Privacidade", "corta.w": "falamos", "corta.a": "sem compromisso", "final.title": "Vamos começar?", "final.lead": "Escreva-nos e conversamos. Sem compromisso.", "final.cta": "Escrever no WhatsApp"
   }
 };
 
@@ -122,7 +122,7 @@ window.QUIZ = {
       { t: "¿Qué es lo que más te cuesta hoy?", o: { presencia: "No tengo presencia en redes", clientes: "Tengo redes, pero no me traen clientes", tiempo: "No tengo tiempo para responder y publicar", numeros: "No sé bien cuánto gano o vendo" } },
       { t: "¿Tenés presupuesto para publicidad?", o: { no: "Todavía no", algo: "Sí, algo", fuerte: "Sí, quiero invertir fuerte" } }
     ],
-    resultTitle: "Tu plan ideal", seeAll: "Ver todos los planes ↓", plus: "+ {x}", cta: "Quiero este plan",
+    resultTitle: "Tu plan ideal", formStep: "Último paso", formTitle: "¿A nombre de quién preparamos tu plan?", fName: "Tu nombre", fEmail: "Tu email", fConsent: "Quiero recibir ideas y novedades de Magency por email. Me puedo dar de baja cuando quiera.", seePlan: "Ver mi plan ideal", legal: "Usamos tus datos solo para contactarte por tu plan.", privacy: "Política de privacidad", errName: "Escribí tu nombre.", errEmail: "Revisá el email: parece que le falta algo.", iam: "Soy {n}.", seeAll: "Ver todos los planes ↓", plus: "+ {x}", cta: "Quiero este plan",
     why: {
       inicio: "Para arrancar bien: redes armadas, logo y cuenta publicitaria, en un pago único.",
       esencial: "Presencia constante en redes, sin que tengas que ocuparte vos.",
@@ -143,7 +143,7 @@ window.QUIZ = {
       { t: "What's hardest for you today?", o: { presencia: "I'm not on social media", clientes: "I have social media, but it doesn't bring customers", tiempo: "I don't have time to reply and post", numeros: "I don't really know how much I earn or sell" } },
       { t: "Do you have an ad budget?", o: { no: "Not yet", algo: "Yes, some", fuerte: "Yes, I want to invest big" } }
     ],
-    resultTitle: "Your ideal plan", seeAll: "See all plans ↓", plus: "+ {x}", cta: "I want this plan",
+    resultTitle: "Your ideal plan", formStep: "Last step", formTitle: "Who should we prepare your plan for?", fName: "Your name", fEmail: "Your email", fConsent: "I want to receive ideas and news from Magency by email. I can unsubscribe at any time.", seePlan: "See my ideal plan", legal: "We only use your details to contact you about your plan.", privacy: "Privacy policy", errName: "Please enter your name.", errEmail: "Please check your email address.", iam: "I'm {n}.", seeAll: "See all plans ↓", plus: "+ {x}", cta: "I want this plan",
     why: {
       inicio: "To start right: social media set up, logo and ad account, in a one-time payment.",
       esencial: "A steady presence on social media without you having to handle it.",
@@ -164,7 +164,7 @@ window.QUIZ = {
       { t: "O que lhe custa mais hoje?", o: { presencia: "Não tenho presença nas redes", clientes: "Tenho redes, mas não me trazem clientes", tiempo: "Não tenho tempo para responder e publicar", numeros: "Não sei bem quanto ganho ou vendo" } },
       { t: "Tem orçamento para anúncios?", o: { no: "Ainda não", algo: "Sim, algum", fuerte: "Sim, quero investir forte" } }
     ],
-    resultTitle: "O seu plano ideal", seeAll: "Ver todos os planos ↓", plus: "+ {x}", cta: "Quero este plano",
+    resultTitle: "O seu plano ideal", formStep: "Último passo", formTitle: "Para quem preparamos o seu plano?", fName: "O seu nome", fEmail: "O seu email", fConsent: "Quero receber ideias e novidades da Magency por email. Posso cancelar quando quiser.", seePlan: "Ver o meu plano ideal", legal: "Usamos os seus dados apenas para o contactar sobre o seu plano.", privacy: "Política de privacidade", errName: "Escreva o seu nome.", errEmail: "Verifique o email.", iam: "Sou {n}.", seeAll: "Ver todos os planos ↓", plus: "+ {x}", cta: "Quero este plano",
     why: {
       inicio: "Para começar bem: redes montadas, logótipo e conta de anúncios, num pagamento único.",
       esencial: "Presença constante nas redes, sem ter de se ocupar disso.",

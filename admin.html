@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel · magency.</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/magency-isotipo-color.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{--v:#6C4DF6;--vh:#5532E0;--lav:#EEE9FF;--lavm:#D9CFFF;--ink:#1F1A33;--mut:#6E6987;--bg2:#FBFAFF;--line:#E6E1F5;--ok:#067647;--bad:#B42318;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg2);color:var(--ink);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+h1,h2,h3{font-family:Outfit,sans-serif;letter-spacing:-.02em}
+[hidden]{display:none!important}
+
+/* PIN */
+#gate{min-height:100dvh;display:grid;place-items:center;padding:24px;background:#fff}
+.gate-box{width:100%;max-width:360px;text-align:center}
+.gate-box img{height:44px;margin-bottom:28px}
+.gate-box h1{font-size:24px;font-weight:800}
+.gate-box p{color:var(--mut);font-size:14px;margin-top:4px}
+.pins{display:flex;gap:8px;justify-content:center;margin:26px 0 14px}
+.pins input{width:46px;height:56px;border-radius:14px;border:1.5px solid var(--line);text-align:center;font:800 24px Outfit,sans-serif;color:var(--ink);background:var(--bg2)}
+.pins input:focus{outline:none;border-color:var(--v);background:#fff}
+.gate-msg{min-height:22px;font:600 13px "Plus Jakarta Sans";color:var(--bad)}
+.gate-box .back{display:inline-block;margin-top:18px;color:var(--mut);font-size:13px;text-decoration:none}
+
+/* panel */
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.top img{height:34px}
+.top h1{font-size:20px;font-weight:800;margin-right:auto}
+.range{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px}
+.range button{padding:6px 12px;border-radius:999px;font:700 12.5px "Plus Jakarta Sans";color:var(--mut)}
+.range button[aria-pressed=true]{background:var(--v);color:#fff}
+.ghost{border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;font:600 13px "Plus Jakarta Sans";color:var(--mut)}
+.ghost:hover{color:var(--v);border-color:var(--v)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;min-width:0}
+.kpi small{display:block;font:600 12px "Plus Jakarta Sans";color:var(--mut)}
+.kpi b{display:block;font:900 30px/1.1 Outfit,sans-serif;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi span{font:600 12px "Plus Jakarta Sans";color:var(--mut)}
+.kpi.hl{background:var(--v);border-color:var(--v);color:#fff}.kpi.hl small,.kpi.hl span{color:#E3DCFF}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:12px;margin-top:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.card h2{font-size:16px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card h2 .n{font:600 12px "Plus Jakarta Sans";color:var(--mut);margin-left:auto}
+.chart{width:100%;height:180px;display:block}
+.legend{display:flex;gap:14px;font:600 12px "Plus Jakarta Sans";color:var(--mut);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;font-size:13px}
+.bar .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .val{font-weight:700;font-variant-numeric:tabular-nums}
+.bar .track{grid-column:1/-1;height:6px;border-radius:999px;background:var(--lav);overflow:hidden}
+.bar .fill{height:100%;background:var(--v);border-radius:999px}
+.empty{color:var(--mut);font-size:13px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font:700 11px "Plus Jakarta Sans";letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td a{color:var(--v)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.nw{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--mut)}
+.pill{display:inline-block;font:700 11px "Plus Jakarta Sans";padding:3px 8px;border-radius:999px}
+.pill.si{background:#E7F6EC;color:var(--ok)}.pill.no{background:#F2F1F6;color:var(--mut)}
+.full{margin-top:12px}
+.note{font-size:12.5px;color:var(--mut);margin-top:18px}
+.loading{opacity:.5;pointer-events:none}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media (max-width:420px){.kpi b{font-size:26px}.pins input{width:40px;height:52px}}
+</style>
+</head>
+<body>
+
+<section id="gate">
+  <div class="gate-box">
+    <img src="assets/magency-logotipo-color.svg" alt="magency.">
+    <h1>Panel de administración</h1>
+    <p>Ingresá tu PIN de 6 dígitos</p>
+    <form id="pinf" autocomplete="off">
+      <div class="pins" id="pins"></div>
+      <div class="gate-msg" id="gmsg" role="alert"></div>
+    </form>
+    <a class="back" href="./">← Volver a la web</a>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <div class="wrap">
+    <div class="top">
+      <img src="assets/magency-isotipo-color.svg" alt="">
+      <h1>Panel de magency.</h1>
+      <div class="range" role="group" aria-label="Período">
+        <button data-d="7">7 días</button><button data-d="30" aria-pressed="true">30 días</button><button data-d="90">90 días</button>
+      </div>
+      <button class="ghost" id="refresh">Actualizar</button>
+      <button class="ghost" id="logout">Salir</button>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="grid2">
+      <div class="card"><h2>Visitas por día <span class="n" id="days-n"></span></h2><svg class="chart" id="chart" role="img" aria-label="Visitas por día"></svg>
+        <div class="legend"><span><i style="background:#D9CFFF"></i>Visitantes</span><span><i style="background:#6C4DF6"></i>Clics en WhatsApp</span></div></div>
+      <div class="card"><h2>Embudo</h2><div class="bars" id="funnel"></div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card"><h2>Botones más usados</h2><div class="bars" id="buttons"></div></div>
+      <div class="card"><h2>Planes recomendados por la encuesta</h2><div class="bars" id="plans"></div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card"><h2>De dónde llegan</h2><div class="bars" id="sources"></div></div>
+      <div class="card"><h2>Dispositivo, idioma y ciudad</h2><div class="bars" id="devs"></div><div class="bars" id="langs" style="margin-top:14px"></div><div class="bars" id="cities" style="margin-top:14px"></div></div>
+    </div>
+
+    <div class="card full"><h2>Contactos de la encuesta <span class="n" id="leads-n"></span><a class="ghost" id="csv" href="/api/admin/data?format=csv&days=365" style="text-decoration:none;margin-left:8px">Descargar CSV</a></h2>
+      <div class="tbl"><table><thead><tr><th>Fecha</th><th>Nombre</th><th>Email</th><th>Emails</th><th>Plan</th><th>Respuestas</th><th>Ciudad</th></tr></thead><tbody id="leads"></tbody></table></div></div>
+
+    <div class="card full"><h2>Quién tocó WhatsApp <span class="n" id="wa-n"></span></h2>
+      <div class="tbl"><table><thead><tr><th>Fecha</th><th>Persona</th><th>Botón</th><th>Plan</th><th>Dispositivo</th><th>Ciudad</th></tr></thead><tbody id="walist"></tbody></table></div></div>
+
+    <p class="note">Las visitas son anónimas: solo se conoce el nombre de quien dejó sus datos en la encuesta. "Emails" indica si aceptó recibir email marketing; usá solo esos contactos para campañas. Tus propias visitas desde este dispositivo no se cuentan.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var days = 30;
+  var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var fmtD = function (ts) { return new Date(ts).toLocaleString("es-AR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Argentina/Mendoza" }); };
+  var num = function (n) { return (n || 0).toLocaleString("es-AR"); };
+  var mmss = function (s) { return s >= 60 ? Math.floor(s / 60) + " min " + (s % 60) + " s" : s + " s"; };
+
+  // ----- PIN -----
+  var pins = $("#pins");
+  for (var i = 0; i < 6; i++) pins.insertAdjacentHTML("beforeend", '<input inputmode="numeric" maxlength="1" aria-label="Dígito ' + (i + 1) + '">');
+  var boxes = Array.prototype.slice.call(pins.querySelectorAll("input"));
+  boxes.forEach(function (b, i) {
+    b.addEventListener("input", function () {
+      b.value = b.value.replace(/\D/g, "").slice(-1);
+      if (b.value && i < 5) boxes[i + 1].focus();
+      if (boxes.every(function (x) { return x.value; })) login();
+    });
+    b.addEventListener("keydown", function (e) { if (e.key === "Backspace" && !b.value && i > 0) boxes[i - 1].focus(); });
+    b.addEventListener("paste", function (e) {
+      var t = (e.clipboardData.getData("text") || "").replace(/\D/g, "").slice(0, 6);
+      if (t.length === 6) { e.preventDefault(); t.split("").forEach(function (c, j) { boxes[j].value = c; }); login(); }
+    });
+  });
+  function login() {
+    var pin = boxes.map(function (b) { return b.value; }).join("");
+    $("#gmsg").textContent = "Verificando…";
+    boxes.forEach(function (b) { b.disabled = true; });
+    fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin: pin }), credentials: "same-origin" })
+      .then(function (r) { return r.json().then(function (j) { return { s: r.status, j: j }; }); })
+      .then(function (r) {
+        if (r.s === 200) { try { localStorage.setItem("mg-notrack", "1"); } catch (e) {} $("#gmsg").textContent = ""; showApp(); return; }
+        boxes.forEach(function (b) { b.disabled = false; b.value = ""; }); boxes[0].focus();
+        $("#gmsg").textContent = r.s === 429 ? "Demasiados intentos. Probá de nuevo en " + (r.j.minutos || 15) + " minutos."
+          : "PIN incorrecto" + (r.j.restantes ? ". Te quedan " + r.j.restantes + " intentos." : ".");
+      })
+      .catch(function () { boxes.forEach(function (b) { b.disabled = false; }); $("#gmsg").textContent = "No se pudo conectar. Probá de nuevo."; });
+  }
+
+  // ----- panel -----
+  function showApp() { $("#gate").hidden = true; $("#app").hidden = false; load(); }
+  function load() {
+    $("#app").classList.add("loading");
+    fetch("/api/admin/data?days=" + days, { credentials: "same-origin" })
+      .then(function (r) { if (r.status === 401) throw 401; return r.json(); })
+      .then(render)
+      .catch(function (e) { if (e === 401) { $("#app").hidden = true; $("#gate").hidden = false; boxes[0].focus(); } })
+      .then(function () { $("#app").classList.remove("loading"); });
+  }
+  function bars(el, rows, total) {
+    if (!rows.length) { el.innerHTML = '<p class="empty">Todavía no hay datos.</p>'; return; }
+    var max = total || Math.max.apply(null, rows.map(function (r) { return r[1]; }));
+    el.innerHTML = rows.map(function (r) {
+      return '<div class="bar"><span class="lbl" title="' + esc(r[0]) + '">' + esc(r[0] || "—") + '</span><span class="val">' + num(r[1]) + '</span><div class="track"><div class="fill" style="width:' + Math.max(2, (r[1] / max) * 100) + '%"></div></div></div>';
+    }).join("");
+  }
+  function chart(rows) {
+    var svg = $("#chart"), W = 600, H = 180, pad = 22, n = rows.length;
+    var top = Math.max.apply(null, rows.map(function (r) { return r.visitors; }));
+    var max = Math.max(2, Math.ceil(top / 2) * 2);
+    var bw = (W - pad) / n, out = "";
+    [0, 0.5, 1].forEach(function (f) {
+      var y = H - 18 - f * (H - 34);
+      out += '<line x1="' + pad + '" x2="' + W + '" y1="' + y + '" y2="' + y + '" stroke="#E6E1F5"/><text x="0" y="' + (y + 4) + '" font-size="10" fill="#6E6987">' + Math.round(max * f) + "</text>";
+    });
+    rows.forEach(function (r, i) {
+      var x = pad + i * bw, h = (r.visitors / max) * (H - 34), h2 = (r.wa / max) * (H - 34);
+      out += '<rect x="' + (x + bw * 0.12) + '" y="' + (H - 18 - h) + '" width="' + bw * 0.76 + '" height="' + h + '" rx="3" fill="#D9CFFF"><title>' + r.day + ": " + r.visitors + " visitantes, " + r.wa + " WhatsApp</title></rect>";
+      if (h2) out += '<rect x="' + (x + bw * 0.3) + '" y="' + (H - 18 - h2) + '" width="' + bw * 0.4 + '" height="' + h2 + '" rx="2" fill="#6C4DF6"/>';
+      if (n <= 31 && (n - 1 - i) % Math.ceil(n / 8) === 0) out += '<text x="' + (x + bw / 2) + '" y="' + (H - 4) + '" font-size="10" fill="#6E6987" text-anchor="middle">' + r.day.slice(8) + "/" + r.day.slice(5, 7) + "</text>";
+    });
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.innerHTML = out;
+  }
+  function render(d) {
+    var k = d.kpis;
+    $("#days-n").textContent = "últimos " + d.days + " días";
+    $("#kpis").innerHTML = [
+      ["Visitantes únicos", num(k.visitors), num(k.views) + " visitas en total"],
+      ["Tiempo promedio en la web", mmss(k.avgSeconds), "por visita"],
+      ["Clics en WhatsApp", num(k.waClicks), num(k.waVisitors) + " personas distintas", true],
+      ["Conversión a WhatsApp", k.waRate + " %", "de los visitantes"],
+      ["Encuestas empezadas", num(k.quizStarted), "personas"],
+      ["Encuestas terminadas", num(k.quizDone), "con plan recomendado"],
+      ["Contactos nuevos", num(k.leads), num(k.leadsConsent) + " aceptan emails"],
+      ["Audios escuchados", num(k.audioPlays), "testimonios"]
+    ].map(function (x) { return '<div class="kpi' + (x[3] ? " hl" : "") + '"><small>' + x[0] + "</small><b>" + x[1] + "</b><span>" + x[2] + "</span></div>"; }).join("");
+    chart(d.byDay);
+    bars($("#funnel"), [["Visitantes", k.visitors], ["Empezaron la encuesta", k.quizStarted], ["Dejaron sus datos", k.leads], ["Tocaron WhatsApp", k.waVisitors]], k.visitors || 1);
+    bars($("#buttons"), d.buttons); bars($("#plans"), d.plans); bars($("#sources"), d.sources);
+    bars($("#devs"), d.devices); bars($("#langs"), d.langs.map(function (r) { return [{ es: "Español", en: "Inglés", pt: "Portugués" }[r[0]] || r[0], r[1]]; })); bars($("#cities"), d.cities);
+    $("#leads-n").textContent = d.leads.length + " en el período";
+    $("#leads").innerHTML = d.leads.length ? d.leads.map(function (l) {
+      return "<tr><td class=nw>" + fmtD(l.ts) + "</td><td>" + esc(l.name) + '</td><td><a href="mailto:' + esc(l.email) + '">' + esc(l.email) + '</a></td><td><span class="pill ' + (l.consent ? "si" : "no") + '">' + (l.consent ? "sí" : "no") + "</span></td><td>" + esc(l.plan) + "</td><td>" + esc((l.answers || []).join(" · ")) + "</td><td>" + esc(l.city) + "</td></tr>";
+    }).join("") : '<tr><td colspan="7" class="empty">Todavía no hay contactos.</td></tr>';
+    $("#wa-n").textContent = d.waList.length + " recientes";
+    $("#walist").innerHTML = d.waList.length ? d.waList.map(function (w) {
+      return "<tr><td class=nw>" + fmtD(w.ts) + "</td><td>" + (w.name ? "<b>" + esc(w.name) + "</b>" : '<span class="empty">Anónimo</span>') + "</td><td>" + esc(w.label) + "</td><td>" + esc(w.plan) + "</td><td>" + esc(w.dev) + "</td><td>" + esc(w.city) + "</td></tr>";
+    }).join("") : '<tr><td colspan="6" class="empty">Todavía nadie tocó WhatsApp en este período.</td></tr>';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".range button"), function (b) {
+    b.addEventListener("click", function () {
+      days = +b.dataset.d;
+      document.querySelectorAll(".range button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      load();
+    });
+  });
+  $("#refresh").addEventListener("click", load);
+  $("#logout").addEventListener("click", function () { fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).then(function () { location.reload(); }); });
+
+  // si ya hay sesión, entra directo
+  fetch("/api/admin/data?days=1", { credentials: "same-origin" }).then(function (r) { if (r.ok) showApp(); else boxes[0].focus(); }, function () { boxes[0].focus(); });
+})();
+</script>
+</body>
+</html>
