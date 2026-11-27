@@ -58,7 +58,7 @@ window.I18N = {
     "me.2": "We always answer", "me.2d": "We keep an eye on your business and solve your questions.",
     "me.3": "Applied AI", "me.3d": "We use new tools to do more, better and at an affordable cost.",
     "me.cta": "Talk to Mauro",
-    "final.title": "Shall we start?", "final.lead": "Message us and let's talk. No commitment.", "final.cta": "Message on WhatsApp"
+    "corta.w": "let's talk", "corta.a": "no strings attached", "final.title": "Shall we start?", "final.lead": "Message us and let's talk. No commitment.", "final.cta": "Message on WhatsApp"
   },
   pt: {
     "nav.plans": "Planos", "nav.services": "Serviços", "nav.clients": "Clientes", "nav.about": "Sobre nós", "nav.cta": "Vamos conversar",
@@ -109,7 +109,7 @@ window.I18N = {
     "me.2": "Respondemos sempre", "me.2d": "Acompanhamos o seu negócio e resolvemos as suas dúvidas.",
     "me.3": "IA aplicada", "me.3d": "Usamos ferramentas novas para fazer mais, melhor e a um custo acessível.",
     "me.cta": "Falar com o Mauro",
-    "final.title": "Vamos começar?", "final.lead": "Escreva-nos e conversamos. Sem compromisso.", "final.cta": "Escrever no WhatsApp"
+    "corta.w": "falamos", "corta.a": "sem compromisso", "final.title": "Vamos começar?", "final.lead": "Escreva-nos e conversamos. Sem compromisso.", "final.cta": "Escrever no WhatsApp"
   }
 };
 
