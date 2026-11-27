@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/ig", "destination": "/?utm_source=instagram&utm_campaign=bio", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",
