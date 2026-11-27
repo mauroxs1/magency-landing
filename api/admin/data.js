@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
     if (e.t === "view") {
       views++; visitors.add(e.v); sessions.add(e.s);
       if (byDay[d]) { byDay[d].views++; byDay[d].visitors.add(e.v); }
-      inc(sources, e.perfil ? `campaña: ${e.perfil}` : e.utm ? `utm: ${e.utm}` : e.ref ? e.ref : "directo");
+      inc(sources, e.utm ? e.utm + (e.perfil ? ` (perfil ${e.perfil})` : "") : e.perfil ? `perfil: ${e.perfil}` : e.ref ? e.ref : "directo");
       inc(devices, e.dev); inc(langs, e.lang); inc(cities, e.city ? `${e.city}${e.country ? ", " + e.country : ""}` : e.country);
     } else if (e.t === "leave") {
       sessSec[e.s] = Math.max(sessSec[e.s] || 0, e.sec);

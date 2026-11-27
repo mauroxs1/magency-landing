@@ -35,10 +35,11 @@
   }
   var VID = stored(localStorage, "mg-v"), SID = stored(sessionStorage, "mg-s");
   var NO_TRACK = (function () { try { return localStorage.getItem("mg-notrack") === "1"; } catch (e) { return false; } })();
+  var UTM = ["utm_source", "utm_campaign", "utm_content"].map(function (k) { return QS.get(k) || ""; }).filter(Boolean).join(" · ");
   var REF = (function () { try { var h = new URL(document.referrer).hostname; return h && h !== location.hostname ? h.replace(/^www\./, "") : ""; } catch (e) { return ""; } })();
   function track(t, extra) {
     if (NO_TRACK || location.protocol === "file:") return;
-    var d = { t: t, v: VID, s: SID, lang: lang, perfil: QS.get("perfil") || "", utm: QS.get("utm_source") || "", ref: REF };
+    var d = { t: t, v: VID, s: SID, lang: lang, perfil: QS.get("perfil") || "", utm: UTM, ref: REF };
     for (var k in (extra || {})) d[k] = extra[k];
     var body = JSON.stringify(d);
     try {
@@ -185,7 +186,7 @@
       var btn = $("button[type=submit]", f); btn.disabled = true;
       var payload = { name: name, email: email, consent: $("#lf-consent").checked, website: f.website.value,
         plan: names, answers: answers.map(function (k, i) { return Q.es.q[i].o[k]; }), lang: lang, v: VID,
-        perfil: QS.get("perfil") || "", utm: QS.get("utm_source") || "" };
+        perfil: QS.get("perfil") || "", utm: UTM };
       var done = function () {
         leadName = name;
         try { localStorage.setItem("mg-lead", name); } catch (e2) {}
